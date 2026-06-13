@@ -54,22 +54,6 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    /* ---------- Cursor glow ---------- */
-    const glow = $("#cursorGlow");
-    if (glow && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-        const loop = () => {
-            cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
-            glow.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-            if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) raf = requestAnimationFrame(loop);
-            else raf = null;
-        };
-        window.addEventListener("pointermove", (e) => {
-            tx = e.clientX; ty = e.clientY;
-            if (!raf) raf = requestAnimationFrame(loop);
-        }, { passive: true });
-    }
-
     /* ---------- Reveal on scroll ---------- */
     const reveals = $$(".reveal");
     if (prefersReduced) {
@@ -166,13 +150,20 @@
                 : { dot: "84,201,138", line: "84,201,138" };
         };
 
-        const resize = () => {
+        let lastW = 0;
+
+        // Resize the canvas buffer to the current viewport (cheap; keeps existing points).
+        const sizeCanvas = () => {
             dpr = Math.min(window.devicePixelRatio || 1, 2);
             w = canvas.width = innerWidth * dpr;
             h = canvas.height = innerHeight * dpr;
             canvas.style.width = innerWidth + "px";
             canvas.style.height = innerHeight + "px";
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+
+        // Generate a fresh set of points for the current width.
+        const seed = () => {
             const count = Math.min(96, Math.floor((innerWidth * innerHeight) / 16000));
             points = Array.from({ length: count }, () => ({
                 x: Math.random() * innerWidth,
@@ -182,6 +173,8 @@
                 r: Math.random() * 1.6 + 0.6,
             }));
         };
+
+        const init = () => { sizeCanvas(); seed(); lastW = innerWidth; };
 
         const draw = () => {
             const { dot, line } = themeColors();
@@ -239,8 +232,16 @@
         window.addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
         window.addEventListener("pointerout", () => { mouse.x = -9999; mouse.y = -9999; });
         let rt;
-        window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
-        resize();
+        window.addEventListener("resize", () => {
+            clearTimeout(rt);
+            rt = setTimeout(() => {
+                // Height-only changes (e.g. mobile address bar hiding on scroll) keep the
+                // existing points so the field doesn't reshuffle; only re-seed on width change.
+                if (innerWidth === lastW) sizeCanvas();
+                else init();
+            }, 200);
+        });
+        init();
         draw();
     }
 })();
