@@ -209,6 +209,8 @@ ul, ol { list-style: none; }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px -10px rgba(86,182,247,.6); }
 .btn-ghost { background: var(--surface-2); color: var(--text); border-color: var(--border); }
 .btn-ghost:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--accent); }
+.btn-arrow { display: inline-block; transition: transform .3s var(--ease); }
+.btn:hover .btn-arrow { transform: translateX(4px); }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(70px, 11vh, 130px) 0; }
