@@ -230,6 +230,14 @@ ul, ol { list-style: none; }
 }
 .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); animation: pulse 2.4s infinite; }
 
+.hero-id { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 22px; }
+.hero-name {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.35rem, 2.8vw, 1.75rem); letter-spacing: -.4px;
+    color: var(--text); margin: 0;
+}
+.hero-divider { width: 1px; height: 22px; background: var(--border); }
+.hero-role-label { font-family: var(--font-mono); font-size: .82rem; letter-spacing: .3px; color: var(--text-soft); }
 .hero-title {
     font-family: var(--font-display); font-weight: 800;
     font-size: clamp(2.4rem, 6vw, 4.3rem); line-height: 1.04; letter-spacing: -1.5px;
@@ -268,7 +276,7 @@ ul, ol { list-style: none; }
     padding: 7px; overflow: visible;
     background: var(--grad-soft); border: 1px solid var(--border);
 }
-.portrait { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.portrait { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; filter: brightness(.8); }
 .status-chip {
     position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%);
     display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
@@ -429,7 +437,8 @@ ul, ol { list-style: none; }
     .hero-grid { grid-template-columns: 1fr; text-align: center; }
     .hero-copy { order: 2; }
     .hero-visual { order: 1; }
-    .eyebrow, .hero-cta, .hero-socials { justify-content: center; }
+    .eyebrow, .hero-cta, .hero-socials, .hero-id { justify-content: center; }
+    .hero-divider { display: none; }
     .hero-lede { margin-inline: auto; }
     .about-grid, .cred-layout { grid-template-columns: 1fr; }
     .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 26px 18px; }
