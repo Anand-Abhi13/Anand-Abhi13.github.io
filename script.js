@@ -162,8 +162,8 @@
         const themeColors = () => {
             const light = root.getAttribute("data-theme") === "light";
             return light
-                ? { dot: "13,148,136", line: "37,99,235" }
-                : { dot: "94,234,212", line: "86,182,247" };
+                ? { dot: "15,157,99", line: "15,157,99" }
+                : { dot: "84,201,138", line: "84,201,138" };
         };
 
         const resize = () => {
