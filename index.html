@@ -1,238 +1,408 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhinav Anand | AI Systems Engineer</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome from CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Abhinav Anand — Senior Software & AI Systems Engineer. Building and scaling enterprise AI platforms across healthcare, finance, and consulting." />
+    <meta name="author" content="Abhinav Anand" />
+    <meta name="theme-color" content="#070b14" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Abhinav Anand — Senior Software & AI Systems Engineer" />
+    <meta property="og:description" content="Designing cloud-native, agentic AI systems on AWS. RAG, multi-agent workflows, and enterprise-scale ML." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="profile.jpg" />
+
+    <title>Abhinav Anand · AI Systems Engineer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    
-    <!-- Decorative Background Elements -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <!-- Scroll progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <nav class="glass-nav">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#education">Education</a></li>
-        </ul>
-    </nav>
+    <!-- Ambient layers -->
+    <canvas id="constellation" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true">
+        <span class="aurora-band band-1"></span>
+        <span class="aurora-band band-2"></span>
+        <span class="aurora-band band-3"></span>
+    </div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-    <main class="container">
-        
-        <!-- Hero Section -->
-        <section id="hero" class="hero fade-in">
-            <div class="hero-content">
-                <!-- Profile Photo Area -->
-                <div class="hero-photo-wrapper">
-                    <!-- Replace the src with your actual photo path. Use a square or circular image (e.g. assets/img/profile.jpg) -->
-                    <div class="photo-placeholder glass-card">
-                        <img src="profile.jpg" alt="Abhinav Anand" class="profile-photo">
-                    </div>
-                </div>
-                <div class="hero-text">
-                    <h1 class="gradient-text">Abhinav Anand</h1>
-                    <h2>Senior Software & AI Systems Engineer</h2>
-                    <div class="contact-badges">
-                        <a href="mailto:aabhinav812@hotmail.com" class="badge glass-card"><i class="fa-solid fa-envelope"></i> aabhinav812@hotmail.com</a>
-                        <span class="badge glass-card"><i class="fa-solid fa-phone"></i> +91 875 797 6567</span>
-                        <span class="badge glass-card"><i class="fa-solid fa-location-dot"></i> Bengaluru, IN</span>
-                        <a href="https://linkedin.com/in/abhinavanand11" target="_blank" class="badge glass-card"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                    </div>
-                    
-                    <p class="summary glass-card mt-2">
-                        Senior Software & AI Systems Engineer with strong experience building and scaling enterprise AI-driven platforms in financial services and consulting environments. Proven expertise in designing cloud-native, distributed systems on AWS, delivering business-critical solutions including credit risk assessment platforms, vulnerability management forecasting, enterprise AI assistants, and automated reporting systems. Demonstrated ability to own end-to-end solution delivery across data engineering, backend microservices, and AI system orchestration.
+    <!-- Navigation -->
+    <header class="nav-shell">
+        <nav class="glass-nav" aria-label="Primary">
+            <a href="#hero" class="brand" aria-label="Home">
+                <span class="brand-mark">AA</span>
+                <span class="brand-text">Abhinav&nbsp;Anand</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+                <li><a href="#work" class="nav-link" data-section="work">Work</a></li>
+                <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+                <li><a href="#credentials" class="nav-link" data-section="credentials">Credentials</a></li>
+                <li><a href="#connect" class="nav-link" data-section="connect">Connect</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ===================== HERO ===================== -->
+        <section id="hero" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow"><span class="dot"></span>Senior Software &amp; AI Systems Engineer</p>
+                    <h1 class="hero-title">
+                        <span class="line">Building intelligent</span>
+                        <span class="line gradient-text">systems that think,</span>
+                        <span class="line">decide &amp; scale.</span>
+                    </h1>
+                    <p class="hero-role">
+                        <span class="prompt">&gt;</span>
+                        <span id="roleText" class="role-text"></span><span class="caret">_</span>
                     </p>
+                    <p class="hero-lede">
+                        6+ years architecting cloud-native, agentic AI platforms across
+                        <strong>US healthcare</strong>, <strong>financial services</strong>, and
+                        <strong>consulting</strong> — from RAG assistants and multi-agent workflows
+                        to enterprise-scale ML on AWS.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#work" class="btn btn-primary"><i class="fa-solid fa-bolt"></i> View my work</a>
+                        <a href="Abhinav_Anand_Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-solid fa-arrow-down"></i> Résumé</a>
+                    </div>
+                    <ul class="hero-socials">
+                        <li><a href="https://github.com/Anand-Abhi13" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/abhinavanand11/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href="https://huggingface.co/Abhinav-Anand" target="_blank" rel="noopener" aria-label="Hugging Face"><i class="fa-solid fa-robot"></i></a></li>
+                        <li><a href="https://www.credly.com/users/abhinav-anand.a19ae906" target="_blank" rel="noopener" aria-label="Credly"><i class="fa-solid fa-award"></i></a></li>
+                        <li><a href="mailto:aabhinav812@hotmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="portrait-orbit">
+                        <div class="orbit-ring ring-a"></div>
+                        <div class="orbit-ring ring-b"></div>
+                        <div class="portrait-frame glass-card">
+                            <img src="profile.jpg" alt="Abhinav Anand" class="portrait" loading="eager" />
+                            <span class="status-chip"><span class="pulse"></span> Open to building</span>
+                        </div>
+                        <span class="float-tag tag-1"><i class="fa-solid fa-brain"></i> Agentic AI</span>
+                        <span class="float-tag tag-2"><i class="fa-brands fa-aws"></i> AWS ×4</span>
+                        <span class="float-tag tag-3"><i class="fa-solid fa-network-wired"></i> RAG</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-stats container reveal">
+                <div class="stat"><span class="stat-num" data-target="6" data-suffix="+">0</span><span class="stat-label">Years engineering</span></div>
+                <div class="stat"><span class="stat-num" data-target="150" data-suffix="+">0</span><span class="stat-label">Engineers mentored</span></div>
+                <div class="stat"><span class="stat-num" data-target="4" data-suffix="×">0</span><span class="stat-label">AWS certifications</span></div>
+                <div class="stat"><span class="stat-num" data-target="2000" data-suffix="+">0</span><span class="stat-label">Hours saved / month</span></div>
+            </div>
+            <a href="#about" class="scroll-hint" aria-label="Scroll down"><span></span></a>
+        </section>
+
+        <!-- ===================== ABOUT ===================== -->
+        <section id="about" class="section">
+            <div class="container">
+                <p class="section-index reveal">01 — About</p>
+                <div class="about-grid">
+                    <div class="about-lede reveal">
+                        <h2 class="section-title">I turn ambiguous problems into <span class="gradient-text">reliable AI systems.</span></h2>
+                        <p>
+                            I'm a Senior Software &amp; AI Systems Engineer who owns delivery end-to-end —
+                            from data engineering and backend microservices to agentic AI orchestration.
+                            I've shipped business-critical platforms: AI-driven claim denials management,
+                            credit-risk assessment, enterprise AI assistants with intelligent model routing,
+                            and automated compliance reporting.
+                        </p>
+                        <p>
+                            My focus is measurable impact: cutting inference cost without sacrificing quality,
+                            automating manual reporting, and building architecture that meets enterprise
+                            compliance and reliability standards. I also love teaching — I've mentored
+                            150+ engineers on LLM fine-tuning.
+                        </p>
+                    </div>
+                    <ul class="about-pillars reveal">
+                        <li class="pillar glass-card">
+                            <i class="fa-solid fa-diagram-project"></i>
+                            <h3>Agentic &amp; RAG systems</h3>
+                            <p>Multi-agent workflows, task decomposition, retrieval pipelines, and model routing in production.</p>
+                        </li>
+                        <li class="pillar glass-card">
+                            <i class="fa-solid fa-cloud"></i>
+                            <h3>Cloud-native on AWS</h3>
+                            <p>Distributed, GitOps-delivered services across EKS, SageMaker, Lambda, and Terraform.</p>
+                        </li>
+                        <li class="pillar glass-card">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h3>Compliance-grade delivery</h3>
+                            <p>HIPAA, Basel III, GDPR, SOX — reliable systems for healthcare, finance &amp; GRC.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
+        <!-- ===================== EXPERIENCE ===================== -->
         <section id="experience" class="section">
-            <h3 class="section-title gradient-text">Work Experience</h3>
-            
-            <div class="timeline">
-                
-                <!-- Calfus -->
-                <div class="timeline-item glass-card slide-up">
-                    <div class="timeline-header">
-                        <div>
-                            <h4>AI Engineer</h4>
-                            <span class="company">Calfus Technologies | Bengaluru, IN</span>
-                        </div>
-                        <span class="date">Feb 2026 - Present</span>
-                    </div>
-                    <p class="role-desc">Bespoke LLM design, AI Infrastructure, GPU LLM training</p>
-                    <ul class="bullet-list">
-                        <li><strong>LLM Foundations & Prompting:</strong> Model architecture, prompt engineering techniques (CoT, zero/one/few-shot), adaptation strategies.</li>
-                        <li><strong>Data Preparation & Fine-Tuning:</strong> Dataset curation, tokenization, domain adaptation, customizing LLMs.</li>
-                        <li><strong>Optimization & Acceleration:</strong> GPU/distributed training, performance tuning, batch/memory optimization, efficiency improvements.</li>
-                        <li><strong>Deployment & Monitoring:</strong> Scalable inference pipelines, containerized orchestration, real-time monitoring, lifecycle management.</li>
-                        <li><strong>Evaluation & Responsible AI:</strong> Benchmarking, error analysis, bias detection, guardrails, compliance, ethical AI.</li>
-                    </ul>
-                </div>
+            <div class="container">
+                <p class="section-index reveal">02 — Experience</p>
+                <h2 class="section-title reveal">Where I've built.</h2>
 
-                <!-- JP Morgan Chase -->
-                <div class="timeline-item glass-card slide-up">
-                    <div class="timeline-header">
-                        <div>
-                            <h4>Senior Software Engineer – AI Systems</h4>
-                            <span class="company">JP Morgan Chase | Hyderabad, IN</span>
+                <ol class="timeline">
+                    <li class="tl-item reveal">
+                        <span class="tl-node"></span>
+                        <div class="tl-card glass-card">
+                            <div class="tl-head">
+                                <div>
+                                    <h3 class="tl-role">Senior Software Development Engineer · R&amp;D / Applied AI</h3>
+                                    <p class="tl-org"><i class="fa-solid fa-building"></i> Calfus <span class="tl-loc">· Bengaluru, IN</span></p>
+                                </div>
+                                <span class="tl-period">Feb 2026 — Present</span>
+                            </div>
+                            <ul class="tl-points">
+                                <li>Built a patient/insurance <strong>denials management platform</strong> for US healthcare — a Medical Coding agent (ICD-10, CPT), a Denial Triage agent parsing ERA 835 remittance files, and an Appeal Draft agent — automating the denial-to-appeal workflow end to end.</li>
+                                <li>Developed an internal <strong>enterprise ChatGPT</strong> with an intelligent model router that scores query complexity to pick the optimal LLM and dynamically decide RAG usage — minimizing inference cost while maximizing quality.</li>
+                                <li>Building <strong>AI-assisted compliance reporting</strong> for a hedge-fund platform; own the full stack with Python, SageMaker, Redis, MongoDB, PostgreSQL, S3, Keycloak and a GitOps pipeline on Docker, ECR, ArgoCD, EKS, Terraform &amp; Route 53.</li>
+                                <li>Ran a company-wide <strong>hackathon on LLM fine-tuning</strong>, mentoring 150+ engineers on LoRA/QLoRA with Unsloth on SageMaker Studio.</li>
+                            </ul>
+                            <div class="tl-stack">
+                                <span>Python</span><span>SageMaker</span><span>EKS</span><span>ArgoCD</span><span>Terraform</span><span>LoRA/QLoRA</span>
+                            </div>
                         </div>
-                        <span class="date">May 2022 – Jan 2026</span>
-                    </div>
-                    <ul class="bullet-list">
-                        <li>Developed a predictive solution to forecast vulnerability closure timelines, enabling early identification of unmanaged findings and improving risk prioritization while leading a team of three developers.</li>
-                        <li>Architected an enterprise RAG AI assistant to answer employee questions using internal documentation, improving information access, response consistency, and compliance.</li>
-                        <li>Developed a credit risk assessment solution to detect early warning signals for consumer and business accounts, delivering daily risk insights.</li>
-                        <li>Created a tool for PPT generation, reducing manual reporting efforts by 80% and saving 2,000+ hours monthly by leveraging AI agents with task decomposition.</li>
-                    </ul>
-                </div>
+                    </li>
 
-                <!-- ZS Associates -->
-                <div class="timeline-item glass-card slide-up">
-                    <div class="timeline-header">
-                        <div>
-                            <h4>Business Technology Analyst</h4>
-                            <span class="company">ZS Associates | Pune, IN</span>
+                    <li class="tl-item reveal">
+                        <span class="tl-node"></span>
+                        <div class="tl-card glass-card">
+                            <div class="tl-head">
+                                <div>
+                                    <h3 class="tl-role">Senior Software Engineer · AI Systems</h3>
+                                    <p class="tl-org"><i class="fa-solid fa-building-columns"></i> JP Morgan Chase <span class="tl-loc">· Hyderabad, IN</span></p>
+                                </div>
+                                <span class="tl-period">May 2022 — Jan 2026</span>
+                            </div>
+                            <ul class="tl-points">
+                                <li>Built a <strong>predictive risk-analytics</strong> solution (Python, SQL, supervised ML on SageMaker/EC2/S3/RDS) forecasting vulnerability closure timelines to surface unmanaged findings early; led a team of three across system design and modeling.</li>
+                                <li>Architected an enterprise-grade <strong>RAG AI assistant</strong> using OpenAI &amp; Anthropic Claude APIs, LangChain, LlamaIndex and vector DBs (FAISS / OpenSearch) for secure, compliant employee Q&amp;A.</li>
+                                <li>Built a <strong>credit-risk early-warning system</strong> with Pandas feature pipelines, MLflow drift monitoring, and FastAPI services orchestrated via Step Functions &amp; Lambda.</li>
+                                <li>Created an AI <strong>PPT-generation tool</strong> using agents with task decomposition &amp; validation — cutting manual reporting 80% and saving 2,000+ hours monthly.</li>
+                            </ul>
+                            <div class="tl-stack">
+                                <span>Claude API</span><span>LangChain</span><span>FAISS</span><span>MLflow</span><span>FastAPI</span><span>Step Functions</span>
+                            </div>
                         </div>
-                        <span class="date">Feb 2020 – May 2022</span>
-                    </div>
-                    <ul class="bullet-list">
-                        <li>Developed a Python-based, microservices-driven platform on AWS (FastAPI, Kafka, PostgreSQL, Docker, Kubernetes) for sales call planning, enabling real-time data processing and high-availability calculations.</li>
-                        <li>Utilized classical NLP techniques (spaCy, NLTK) for call note analysis, physician segmentation, and territory insights.</li>
-                    </ul>
+                    </li>
+
+                    <li class="tl-item reveal">
+                        <span class="tl-node"></span>
+                        <div class="tl-card glass-card">
+                            <div class="tl-head">
+                                <div>
+                                    <h3 class="tl-role">Business Technology Analyst</h3>
+                                    <p class="tl-org"><i class="fa-solid fa-chart-line"></i> ZS Associates <span class="tl-loc">· Pune, IN</span></p>
+                                </div>
+                                <span class="tl-period">Feb 2020 — May 2022</span>
+                            </div>
+                            <ul class="tl-points">
+                                <li>Developed a Python, microservices-driven platform on AWS (FastAPI, Kafka, PostgreSQL, Docker, Kubernetes) for <strong>sales-call planning</strong> — real-time processing, secure APIs, and high-availability incentive-compensation calculations.</li>
+                                <li>Applied classical <strong>NLP</strong> (spaCy, NLTK) for call-note analysis, physician segmentation, and territory insights.</li>
+                            </ul>
+                            <div class="tl-stack">
+                                <span>FastAPI</span><span>Kafka</span><span>Kubernetes</span><span>spaCy</span><span>NLTK</span>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== WORK / SIGNATURE BUILDS ===================== -->
+        <section id="work" class="section">
+            <div class="container">
+                <p class="section-index reveal">03 — Signature builds</p>
+                <h2 class="section-title reveal">Systems I'm proud of.</h2>
+                <div class="work-grid">
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-file-medical"></i></div>
+                        <h3>Denials Management Platform</h3>
+                        <p>A trio of cooperating agents — medical coding (ICD-10/CPT), ERA 835 denial triage, and appeal drafting — automating the healthcare denial-to-appeal lifecycle.</p>
+                        <div class="work-tags"><span>Multi-agent</span><span>Healthcare RCM</span><span>Python</span></div>
+                    </article>
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-route"></i></div>
+                        <h3>Intelligent Model Router</h3>
+                        <p>Enterprise ChatGPT that scores query complexity to route to the optimal LLM and decide RAG usage on the fly — cost down, quality up.</p>
+                        <div class="work-tags"><span>LLM routing</span><span>RAG</span><span>Cost-aware</span></div>
+                    </article>
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                        <h3>Enterprise RAG Assistant</h3>
+                        <p>Secure, compliant employee Q&amp;A over internal docs — Claude &amp; OpenAI, LangChain, LlamaIndex, FAISS / OpenSearch on AWS.</p>
+                        <div class="work-tags"><span>RAG</span><span>Claude API</span><span>Vector DB</span></div>
+                    </article>
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h3>Credit-Risk Early Warning</h3>
+                        <p>Feature pipelines with MLflow drift monitoring delivering risk signals via FastAPI, orchestrated with Step Functions &amp; Lambda.</p>
+                        <div class="work-tags"><span>ML</span><span>MLflow</span><span>FastAPI</span></div>
+                    </article>
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3>AI Report &amp; Deck Generator</h3>
+                        <p>Agents with task decomposition &amp; validation auto-build templated decks — 80% less manual effort, 2,000+ hours saved monthly.</p>
+                        <div class="work-tags"><span>Agents</span><span>Automation</span><span>2000+ hrs</span></div>
+                    </article>
+                    <article class="work-card glass-card reveal">
+                        <div class="work-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h3>Fine-Tuning Hackathon</h3>
+                        <p>Designed and led a company-wide program teaching 150+ engineers LoRA/QLoRA fine-tuning with Unsloth on SageMaker Studio.</p>
+                        <div class="work-tags"><span>LoRA/QLoRA</span><span>Unsloth</span><span>Mentorship</span></div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
+        <!-- ===================== SKILLS ===================== -->
         <section id="skills" class="section">
-            <h3 class="section-title gradient-text">Skills</h3>
-            <div class="skills-grid">
-                
-                <div class="skill-category glass-card slide-up">
-                    <h5>Machine Learning & AI</h5>
-                    <div class="pill-container">
-                        <span class="pill">Supervised/Unsupervised Learning</span>
-                        <span class="pill">Reinforcement Learning</span>
-                        <span class="pill">Optuna</span>
-                        <span class="pill">MLflow / SageMaker</span>
-                        <span class="pill">SHAP</span>
+            <div class="container">
+                <p class="section-index reveal">04 — Toolkit</p>
+                <h2 class="section-title reveal">The stack I build with.</h2>
+                <div class="skills-grid">
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-robot"></i> LLMs, GenAI &amp; Agents</h3>
+                        <div class="chips">
+                            <span>OpenAI</span><span>Anthropic Claude</span><span>LangChain</span><span>LangGraph</span><span>CrewAI</span><span>RAG</span><span>Fine-tuning (LoRA/QLoRA)</span><span>Prompt engineering</span><span>FAISS</span><span>Pinecone</span><span>OpenSearch</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-category glass-card slide-up">
-                    <h5>LLMs & Generative AI</h5>
-                    <div class="pill-container">
-                        <span class="pill">OpenAI API</span>
-                        <span class="pill">Claude API</span>
-                        <span class="pill">Hugging Face</span>
-                        <span class="pill">LangChain</span>
-                        <span class="pill">LlamaIndex</span>
-                        <span class="pill">RAG</span>
-                        <span class="pill">Pinecone / FAISS</span>
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-brain"></i> Machine Learning</h3>
+                        <div class="chips">
+                            <span>Supervised / Unsupervised</span><span>Feature engineering</span><span>Model deployment</span><span>MLflow</span><span>SHAP</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-category glass-card slide-up">
-                    <h5>AI Agents</h5>
-                    <div class="pill-container">
-                        <span class="pill">CrewAI</span>
-                        <span class="pill">LangGraph</span>
-                        <span class="pill">Multi-Agent Coordination</span>
-                        <span class="pill">HITL Workflows</span>
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-code"></i> Languages &amp; Backend</h3>
+                        <div class="chips">
+                            <span>Python</span><span>SQL</span><span>Bash</span><span>FastAPI</span><span>REST</span><span>gRPC</span><span>Microservices</span><span>Kafka</span><span>Pandas</span><span>PySpark</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-category glass-card slide-up">
-                    <h5>Cloud Platforms (AWS)</h5>
-                    <div class="pill-container">
-                        <span class="pill">EC2 / Lambda</span>
-                        <span class="pill">ECS / EKS</span>
-                        <span class="pill">SageMaker / Bedrock</span>
-                        <span class="pill">Step Functions</span>
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-database"></i> Data &amp; Storage</h3>
+                        <div class="chips">
+                            <span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Redis</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-category glass-card slide-up">
-                    <h5>Languages & Backend</h5>
-                    <div class="pill-container">
-                        <span class="pill">Python</span>
-                        <span class="pill">SQL / Bash</span>
-                        <span class="pill">FastAPI</span>
-                        <span class="pill">Flask</span>
-                        <span class="pill">Microservices</span>
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-server"></i> Cloud &amp; DevOps</h3>
+                        <div class="chips">
+                            <span>AWS</span><span>EKS</span><span>SageMaker</span><span>Bedrock</span><span>Lambda</span><span>Docker</span><span>Kubernetes</span><span>Terraform</span><span>ArgoCD</span><span>GitHub Actions</span>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="skill-category glass-card slide-up">
-                    <h5>DevOps & Infra</h5>
-                    <div class="pill-container">
-                        <span class="pill">Docker</span>
-                        <span class="pill">Kubernetes</span>
-                        <span class="pill">Terraform</span>
-                        <span class="pill">GitHub Actions</span>
+                    <div class="skill-group glass-card reveal">
+                        <h3><i class="fa-solid fa-scale-balanced"></i> Domain &amp; Compliance</h3>
+                        <div class="chips">
+                            <span>US Healthcare RCM</span><span>Pharma</span><span>Credit Risk</span><span>Hedge Funds</span><span>Cybersecurity GRC</span><span>HIPAA</span><span>Basel III</span><span>GDPR</span><span>SOX</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education & Certs Section -->
-        <section id="education" class="section grid-2-col">
-            <div class="glass-card slide-up p-3">
-                <h3 class="section-title gradient-text">Education</h3>
-                
-                <div class="edu-item">
-                    <h5>Birla Institute of Technology, Mesra</h5>
-                    <p class="degree">B.E. Electrical and Electronics Engineering</p>
-                    <div class="meta"><span>2016-2020</span> · <span>CGPA: 7.53</span></div>
-                </div>
+        <!-- ===================== CREDENTIALS ===================== -->
+        <section id="credentials" class="section">
+            <div class="container">
+                <p class="section-index reveal">05 — Credentials</p>
+                <h2 class="section-title reveal">Certifications, awards &amp; education.</h2>
 
-                <div class="edu-item">
-                    <h5>Chinmaya Vidyalaya, Bokaro</h5>
-                    <p class="degree">Class XII (C.B.S.E)</p>
-                    <div class="meta"><span>2014-2016</span> · <span>94%</span></div>
-                </div>
-                
-                 <div class="edu-item">
-                    <h5>Chinmaya Vidyalaya, Bokaro</h5>
-                    <p class="degree">Class X (C.B.S.E)</p>
-                    <div class="meta"><span>2002-2014</span> · <span>10 CGPA</span></div>
-                </div>
-            </div>
+                <div class="cred-layout">
+                    <div class="cred-col reveal">
+                        <h3 class="cred-heading"><i class="fa-solid fa-certificate"></i> Certifications &amp; Awards</h3>
+                        <ul class="cert-list">
+                            <li class="cert glass-card"><i class="fa-brands fa-aws"></i><div><strong>AWS Certified Cloud Practitioner</strong><span>Amazon Web Services</span></div></li>
+                            <li class="cert glass-card"><i class="fa-brands fa-aws"></i><div><strong>AWS Certified Developer — Associate</strong><span>Amazon Web Services</span></div></li>
+                            <li class="cert glass-card"><i class="fa-brands fa-aws"></i><div><strong>AWS Certified Security — Specialty</strong><span>Amazon Web Services</span></div></li>
+                            <li class="cert glass-card"><i class="fa-brands fa-aws"></i><div><strong>AWS Certified Machine Learning — Specialty</strong><span>Amazon Web Services</span></div></li>
+                            <li class="cert glass-card"><i class="fa-solid fa-chart-pie"></i><div><strong>Qlik Sense Data Architect</strong><span>Qlik · Feb 2021</span></div></li>
+                            <li class="cert glass-card highlight"><i class="fa-solid fa-trophy"></i><div><strong>Individual Key Contributor Award · Q4 2024</strong><span>Cybersecurity &amp; Tech Controls — JP Morgan Chase</span></div></li>
+                        </ul>
+                        <a href="https://www.credly.com/users/abhinav-anand.a19ae906" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><i class="fa-solid fa-award"></i> Verify on Credly</a>
+                    </div>
 
-            <div class="glass-card slide-up p-3">
-                <h3 class="section-title gradient-text">Certifications & Awards</h3>
-                <ul class="award-list">
-                    <li><i class="fa-solid fa-award text-accent"></i> AWS Certified Cloud Practitioner</li>
-                    <li><i class="fa-solid fa-award text-accent"></i> AWS Certified Developer – Associate</li>
-                    <li><i class="fa-solid fa-award text-accent"></i> AWS Certified Security – Specialty</li>
-                    <li><i class="fa-solid fa-award text-accent"></i> AWS Certified Machine Learning - Specialty</li>
-                    <li><i class="fa-solid fa-award text-accent"></i> Qlik Sense Data Architect Certification (Feb 2021)</li>
-                    <li><i class="fa-solid fa-trophy text-accent"></i> Q4-2024 Individual Key Contributor Award – JP Morgan Chase</li>
-                </ul>
+                    <div class="cred-col reveal">
+                        <h3 class="cred-heading"><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+                        <ul class="edu-list">
+                            <li class="edu glass-card">
+                                <span class="edu-year">2016 — 2020</span>
+                                <strong>B.E., Electrical &amp; Electronics Engineering</strong>
+                                <span>Birla Institute of Technology, Mesra · Ranchi</span>
+                                <span class="edu-meta">CGPA 7.53</span>
+                            </li>
+                            <li class="edu glass-card">
+                                <span class="edu-year">2014 — 2016</span>
+                                <strong>Class XII · CBSE</strong>
+                                <span>Chinmaya Vidyalaya, Bokaro Steel City</span>
+                                <span class="edu-meta">94%</span>
+                            </li>
+                            <li class="edu glass-card">
+                                <span class="edu-year">2014</span>
+                                <strong>Class X · CBSE</strong>
+                                <span>Chinmaya Vidyalaya, Bokaro Steel City</span>
+                                <span class="edu-meta">CGPA 10.0</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- ===================== CONNECT ===================== -->
+        <section id="connect" class="section">
+            <div class="container">
+                <p class="section-index reveal">06 — Connect</p>
+                <div class="connect-card glass-card reveal">
+                    <h2 class="connect-title">Let's build something <span class="gradient-text">intelligent.</span></h2>
+                    <p class="connect-lede">Open to ambitious AI-systems work. The fastest way to reach me is email or LinkedIn.</p>
+                    <div class="connect-actions">
+                        <a href="mailto:aabhinav812@hotmail.com" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> aabhinav812@hotmail.com</a>
+                        <a href="https://www.linkedin.com/in/abhinavanand11/" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+                    </div>
+                    <div class="connect-links">
+                        <a href="https://github.com/Anand-Abhi13" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                        <a href="https://huggingface.co/Abhinav-Anand" target="_blank" rel="noopener"><i class="fa-solid fa-robot"></i> Hugging Face</a>
+                        <a href="https://www.credly.com/users/abhinav-anand.a19ae906" target="_blank" rel="noopener"><i class="fa-solid fa-award"></i> Credly</a>
+                        <span><i class="fa-solid fa-location-dot"></i> Bengaluru, India</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p class="text-center">© 2026 Abhinav Anand</p>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <span class="brand-mark sm">AA</span>
+            <p>© <span id="year"></span> Abhinav Anand · Designed &amp; built with care.</p>
+            <a href="#hero" class="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
